@@ -6,6 +6,7 @@ class GhostPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = GhostPost
         fields = [
+            'id',
             'isBoast',
             'content',
             'upvotes',

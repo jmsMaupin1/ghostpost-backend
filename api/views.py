@@ -20,10 +20,10 @@ class GhostPostViewSet(viewsets.ModelViewSet):
 
         return Response({'status': 'upvoted'})
     
-    @action(detail=True)
+    @action(detail=True, methods=['get'])
     def downvote(self, request, pk=None):
         post = GhostPost.objects.get(pk=pk)
-        posts.downvotes += 1
+        post.downvotes += 1
         post.save()
 
         return Response({'status': 'downvoted'})
