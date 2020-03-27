@@ -14,16 +14,31 @@ class GhostPostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def upvote(self, request, pk=None):
-        post = GhostPost.objects.get(pk=pk)
-        post.upvotes += 1
-        post.save()
+        try:
+            post = GhostPost.objects.get(pk=pk)
+            post.upvotes += 1
+            post.save()
 
-        return Response({'status': 'upvoted'})
+            return Response({'status': 'upvoted'})
+        except Exception as e:
+            return Response({'status': '', 'err': e})
     
     @action(detail=True, methods=['get'])
     def downvote(self, request, pk=None):
-        post = GhostPost.objects.get(pk=pk)
-        post.downvotes += 1
-        post.save()
+        try:
+            post = GhostPost.objects.get(pk=pk)
+            post.downvotes += 1
+            post.save()
 
-        return Response({'status': 'downvoted'})
+            return Response({'status': 'downvoted'})
+        except Exception as e:
+            return Response({'status': '', 'err': e})    
+    
+    @action(detail=True, methods=['delete'])
+    def remove(detail=True, request, pk=None)
+        try:
+            GhostPost.objects.filter(secret_id=pk).delete()
+        except Exception as e:
+            return Response({'status': '', 'err': e})
+        
+        return Response({'status', 'deleted'})
