@@ -11,5 +11,5 @@ class GhostPostSerializer(serializers.ModelSerializer):
             'content',
             'upvotes',
             'downvotes',
-            'datetime'
+            'datetime',
         ]
