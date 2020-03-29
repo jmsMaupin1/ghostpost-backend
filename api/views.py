@@ -29,7 +29,13 @@ class GhostPostViewSet(viewsets.ModelViewSet):
             post.upvotes += 1
             post.save()
 
-            return Response(model_to_dict(post))
+            post_dict = model_to_dict(post)
+
+            return Response({
+                'id': post_dict['id'],
+                'upvotes': post_dict['upvotes'],
+                'downvotes': post_dict['downvotes']
+            })
         except Exception as e:
             return Response({'status': '', 'err': e})
     
@@ -40,15 +46,24 @@ class GhostPostViewSet(viewsets.ModelViewSet):
             post.downvotes += 1
             post.save()
 
-            return Response(model_to_dict(post))
+            post_dict = model_to_dict(post)
+
+            return Response({
+                'id': post_dict['id'],
+                'upvotes': post_dict['upvotes'],
+                'downvotes': post_dict['downvotes']
+            })
         except Exception as e:
             return Response({'status': '', 'err': e})    
     
     @action(detail=True, methods=['delete'])
     def remove(self, request, pk=None):
+        post_res = None
         try:
-            GhostPost.objects.filter(secret_id=pk).delete()
+            post = GhostPost.objects.get(secret_id=pk)
+            post_res = model_to_dict(post)['id']
+            post.delete()
         except Exception as e:
-            return Response({'status': '', 'err': e})
+            return Response({'error': f"{e}"})
         
-        return Response({'status', 'deleted'})
+        return Response({post_res})
