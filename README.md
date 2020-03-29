@@ -15,3 +15,7 @@ run `poetry install` followed by `poetry shell`
 ### when youre inside the  poetry shell
 
 run `python manage.py runserver`
+
+## Looking into the API
+
+navigate to `localhost:8000/api` (or whatever port you end up using) to view the api endpoints and related information
