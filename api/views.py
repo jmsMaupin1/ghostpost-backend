@@ -29,7 +29,7 @@ class GhostPostViewSet(viewsets.ModelViewSet):
             post.upvotes += 1
             post.save()
 
-            return Response({'status': 'upvoted'})
+            return Response(model_to_dict(post))
         except Exception as e:
             return Response({'status': '', 'err': e})
     
@@ -40,7 +40,7 @@ class GhostPostViewSet(viewsets.ModelViewSet):
             post.downvotes += 1
             post.save()
 
-            return Response({'status': 'downvoted'})
+            return Response(model_to_dict(post))
         except Exception as e:
             return Response({'status': '', 'err': e})    
     
